@@ -121,3 +121,11 @@ body {
     margin: 0 10px 0 0;
   }
 }
+
+li .active {
+  font-weight: 600;
+}
+
+a:visited {
+  color: blue;
+}
