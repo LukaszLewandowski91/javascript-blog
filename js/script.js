@@ -108,8 +108,7 @@
       /* [DONE] START LOOP: for each tag */
       for (let tag of articleTagsArray) {
         /* [DONE] generate HTML of the link */
-        const linkHTML =
-          '<li><a href="#tag-' + tag + '">' + tag + '&nbsp; </a></li>';
+        const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
         console.log(linkHTML);
 
         /* add generated code to html variable */
@@ -135,9 +134,16 @@
     const clickedElement = this;
     console.log('Link was clicked');
 
-    /* [IN PROGRESS] make a new constant "href" and read the attribute "href" of the clicked element */
-    /* make a new constant "tag" and extract tag from the "href" constant */
-    /* find all tag links with class active */
+    /* [DONE] make a new constant "href" and read the attribute "href" of the clicked element */
+    const href = clickedElement.getAttribute('href');
+    console.log(href);
+
+    /* [DONE] make a new constant "tag" and extract tag from the "href" constant */
+    const tag = href.replace('#tag-', '');
+    console.log(tag);
+
+    /* [IN PROGRESS] find all tag links with class active */
+
     /* START LOOP: for each active tag link */
     /* remove class active */
     /* END LOOP: for each active tag link */
