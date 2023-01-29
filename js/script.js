@@ -160,9 +160,9 @@
     const findTagsLinks = document.querySelectorAll('a[href="' + href + '"]');
 
     /*[DONE] START LOOP: for each found tag link */
-    for (let activeTagLink of findTagsLinks) {
+    for (let tagLink of findTagsLinks) {
       /* [DONE add class active */
-      activeTagLink.classList.add('active');
+      tagLink.classList.add('active');
     }
     /* END LOOP: for each found tag link */
 
@@ -237,9 +237,9 @@
     );
 
     /*[DONE] START LOOP: for each found author link */
-    for (let activeAuthor of findAuthorsLinks) {
+    for (let authorLink of findAuthorsLinks) {
       /* [DONE add class active */
-      activeAuthor.classList.add('active');
+      authorLink.classList.add('active');
     }
     /* END LOOP: for each found author link */
 
