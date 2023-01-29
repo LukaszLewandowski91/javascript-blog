@@ -42,7 +42,8 @@
     optTagsListSelector = '.tags.list',
     optCloudClassCount = 5,
     optCloudClassPrefix = 'tag-size-',
-    optListTagSelector = '.sidebar .list';
+    optListTagSelector = '.sidebar .list',
+    optAuthorsListSelector = '.list.authors';
 
   function generateTitleLinks(customSelector = '') {
     /* [DONE] clear content in all links*/
@@ -264,6 +265,9 @@
   addClickListenersToListTags();
 
   function generateAuthors() {
+    /* [DONE] create a new variable allAuthors with an empty object */
+    let allAuthors = {};
+
     /* [DONE] find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
 
@@ -277,12 +281,42 @@
       const articleAuthor = article.getAttribute('data-author');
       console.log(articleAuthor);
 
+      /* [DONE] check if this link is NOT already in allAuthors */
+      if (!allAuthors[articleAuthor]) {
+        allAuthors[articleAuthor] = 1;
+      } else {
+        allAuthors[articleAuthor]++;
+      }
+      console.log(allAuthors);
       /* [DONE] generate link HTML for author */
       const linkHTML =
         '<a href="#' + articleAuthor + '">by ' + articleAuthor + '</a>';
       console.log(linkHTML);
       /* [DONE] Add link author to article */
       authorList.innerHTML = linkHTML;
+
+      /* [DONE] find list of authors in right column */
+
+      const authorsList = document.querySelector(optAuthorsListSelector);
+      /* [DONE] create variable for all links HTML code */
+      let allAuthorsHTML = '';
+
+      /* [DONE] START LOOP: for each tag in allAuthors: */
+      for (let author in allAuthors) {
+        /* [DONE] generate code of a link and add it to allAuthorsHTML */
+        const authorLinkHTML =
+          '<li><a href="#' +
+          author +
+          '">' +
+          author +
+          '</a> (' +
+          allAuthors[author] +
+          ')</li>';
+        console.log(authorLinkHTML);
+        allAuthorsHTML += authorLinkHTML;
+      }
+      /* END LOOP: for each tag in allAuthors: */
+      authorsList.innerHTML = allAuthorsHTML;
     }
   }
 
@@ -343,4 +377,19 @@
   }
 
   addClickListenersToAuthors();
+
+  function addClickListenersToListAuthors() {
+    /* [DONE] find all links to authors */
+    const links = document.querySelectorAll(optAuthorsListSelector + ' a');
+
+    /* [DONE] START LOOP: for each link */
+    for (let link of links) {
+      /* [DONE] add authorClickHandler as event listener for that link */
+      link.addEventListener('click', authorClickHandler);
+    }
+
+    /* END LOOP: for each link */
+  }
+
+  addClickListenersToListAuthors();
 }
