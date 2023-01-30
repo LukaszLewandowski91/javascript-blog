@@ -9,7 +9,7 @@
     "init:files": "touch README.md index.html sass/style.scss js/script.js",
     "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
     "init:htmlvalidateconfig": "curl https://raw.githubusercontent.com/LukaszLewandowski91/javascript-prework/main/.htmlvalidate.json -o .htmlvalidate.json",
-    "test": "npm run test:*",
+    "test": "npm-run-all test:*",
     "test:html": "html-validate *.html",
     "test:js": "eslint js/",
     "build": "npm-run-all build:* test",

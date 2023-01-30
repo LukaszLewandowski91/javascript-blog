@@ -28,9 +28,15 @@
   };
 
   const templates = {
-    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
-    tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
-    authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML)
+    articleLink: Handlebars.compile(
+      document.querySelector('#template-article-link').innerHTML
+    ),
+    tagLink: Handlebars.compile(
+      document.querySelector('#template-tag-link').innerHTML
+    ),
+    authorLink: Handlebars.compile(
+      document.querySelector('#template-author-link').innerHTML
+    ),
   };
 
   const titleClickHandler = function (event) {
@@ -66,7 +72,7 @@
     findArticle.classList.add('active');
   };
 
-  function generateTitleLinks(customSelector = '') {
+  const generateTitleLinks = function (customSelector = '') {
     /* [DONE] clear content in all links*/
     const titleList = document.querySelector(select.listOf.titles);
     titleList.innerHTML = '';
@@ -84,11 +90,13 @@
       console.log(articleId);
 
       /* [DONE] find the title element and get the title from the title element */
-      const articleTitle = article.querySelector(select.article.title).innerHTML;
+      const articleTitle = article.querySelector(
+        select.article.title
+      ).innerHTML;
       console.log(articleTitle);
 
       /* [DONE] create HTML of the link */
-      const linkHTMLData = {id: articleId, title: articleTitle};
+      const linkHTMLData = { id: articleId, title: articleTitle };
       const linkHTML = templates.articleLink(linkHTMLData);
       console.log(linkHTML);
 
@@ -106,11 +114,11 @@
     for (let link of links) {
       link.addEventListener('click', titleClickHandler);
     }
-  }
+  };
 
   generateTitleLinks();
 
-  function calculateTagsParams(tags) {
+  const calculateTagsParams = function (tags) {
     const params = { min: 9999999, max: 0 };
     for (let tag in tags) {
       if (tags[tag] > params.max) {
@@ -121,18 +129,18 @@
       }
     }
     return params;
-  }
+  };
 
-  function calculateTagClass(count, params) {
+  const calculateTagClass = function (count, params) {
     const normalizedCount = count - params.min;
     const normalizedMax = params.max - params.min;
     const percentage = normalizedCount / normalizedMax;
     const classNumber = Math.floor(percentage * (opts.tagSizes.count - 1) + 1);
     const className = opts.tagSizes.classPrefix + classNumber;
     return className;
-  }
+  };
 
-  function generateTags() {
+  const generateTags = function () {
     /* [DONE] create a new variable allTags with an empty object */
     let allTags = {};
     /* [DONE] find all articles */
@@ -157,7 +165,7 @@
       /* [DONE] START LOOP: for each tag */
       for (let tag of articleTagsArray) {
         /* [DONE] generate HTML of the link */
-        const linkHTMLData = {id: tag, title: tag};
+        const linkHTMLData = { id: tag, title: tag };
         const linkHTML = templates.tagLink(linkHTMLData);
         console.log(linkHTML);
 
@@ -206,11 +214,11 @@
 
     /*[DONE] add HTML from allTagsHTML to tagList */
     tagList.innerHTML = allTagsHTML;
-  }
+  };
 
   generateTags();
 
-  function tagClickHandler(event) {
+  const tagClickHandler = function (event) {
     /* [DONE] prevent default action for this event */
     event.preventDefault();
 
@@ -249,9 +257,9 @@
 
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-tags~="' + tag + '"]');
-  }
+  };
 
-  function addClickListenersToTags() {
+  const addClickListenersToTags = function () {
     /* [DONE] find all links to tags */
     const links = document.querySelectorAll(select.article.tags + ' a');
 
@@ -262,11 +270,11 @@
     }
 
     /* END LOOP: for each link */
-  }
+  };
 
   addClickListenersToTags();
 
-  function addClickListenersToListTags() {
+  const addClickListenersToListTags = function () {
     /* [DONE] find all links to tags */
     const links = document.querySelectorAll(select.listOf.tags + ' a');
 
@@ -277,11 +285,11 @@
     }
 
     /* END LOOP: for each link */
-  }
+  };
 
   addClickListenersToListTags();
 
-  function generateAuthors() {
+  const generateAuthors = function () {
     /* [DONE] create a new variable allAuthors with an empty object */
     let allAuthors = {};
 
@@ -307,7 +315,7 @@
       console.log(allAuthors);
 
       /* [DONE] generate link HTML for author */
-      const linkHTMLData = {id: articleAuthor, title: articleAuthor};
+      const linkHTMLData = { id: articleAuthor, title: articleAuthor };
       const linkHTML = templates.authorLink(linkHTMLData);
 
       console.log(linkHTML);
@@ -338,11 +346,11 @@
       /* END LOOP: for each tag in allAuthors: */
       authorsList.innerHTML = allAuthorsHTML;
     }
-  }
+  };
 
   generateAuthors();
 
-  function authorClickHandler(event) {
+  const authorClickHandler = function (event) {
     /* [DONE] prevent default action for this event */
     event.preventDefault();
     const clickedElement = this;
@@ -381,9 +389,9 @@
 
     /* execute function "generateTitleLinks" with article selector as argument */
     generateTitleLinks('[data-author="' + author + '"]');
-  }
+  };
 
-  function addClickListenersToAuthors() {
+  const addClickListenersToAuthors = function () {
     /* [DONE] find all links to authors */
     const links = document.querySelectorAll(select.article.author + ' a');
 
@@ -394,11 +402,11 @@
     }
 
     /* END LOOP: for each link */
-  }
+  };
 
   addClickListenersToAuthors();
 
-  function addClickListenersToListAuthors() {
+  const addClickListenersToListAuthors = function () {
     /* [DONE] find all links to authors */
     const links = document.querySelectorAll(select.listOf.authors + ' a');
 
@@ -409,7 +417,7 @@
     }
 
     /* END LOOP: for each link */
-  }
+  };
 
   addClickListenersToListAuthors();
 }
