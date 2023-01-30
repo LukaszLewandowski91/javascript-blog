@@ -37,6 +37,12 @@
     authorLink: Handlebars.compile(
       document.querySelector('#template-author-link').innerHTML
     ),
+    tagCloudLink: Handlebars.compile(
+      document.querySelector('#template-tag-cloud-link').innerHTML
+    ),
+    authorCloudLink: Handlebars.compile(
+      document.querySelector('#template-author-cloud-link').innerHTML
+    ),
   };
 
   const titleClickHandler = function (event) {
@@ -193,8 +199,9 @@
 
     const tagsParams = calculateTagsParams(allTags);
     console.log('tagsParams:', tagsParams);
+
     /* [DONE] create variable for all links HTML code */
-    let allTagsHTML = '';
+    const allTagsData = { tags: [] };
 
     /* [DONE] START LOOP: for each tag in allTags: */
     for (let tag in allTags) {
@@ -208,12 +215,18 @@
         tag +
         '</a> </li>';
       console.log(tagLinkHTML);
-      allTagsHTML += tagLinkHTML;
+
+      allTagsData.tags.push({
+        tag: tag,
+        count: allTags[tag],
+        className: calculateTagClass(allTags[tag], tagsParams),
+      });
     }
     /* END LOOP: for each tag in allTags: */
 
     /*[DONE] add HTML from allTagsHTML to tagList */
-    tagList.innerHTML = allTagsHTML;
+    tagList.innerHTML = templates.tagCloudLink(allTagsData);
+    console.log('New list of tags: ' + allTagsData);
   };
 
   generateTags();
@@ -327,7 +340,7 @@
 
       const authorsList = document.querySelector(select.listOf.authors);
       /* [DONE] create variable for all links HTML code */
-      let allAuthorsHTML = '';
+      const allAuthorsData = { authors: [] };
 
       /* [DONE] START LOOP: for each tag in allAuthors: */
       for (let author in allAuthors) {
@@ -341,10 +354,14 @@
           allAuthors[author] +
           ')</li>';
         console.log(authorLinkHTML);
-        allAuthorsHTML += authorLinkHTML;
+
+        allAuthorsData.authors.push({
+          author: author,
+          count: allAuthors[author],
+        });
       }
       /* END LOOP: for each tag in allAuthors: */
-      authorsList.innerHTML = allAuthorsHTML;
+      authorsList.innerHTML = templates.authorCloudLink(allAuthorsData);
     }
   };
 
